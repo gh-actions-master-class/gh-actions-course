@@ -30,9 +30,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Runs a set of commands using the runners shell
-      - name: Failed step
+      # - name: Failed step
+      #   run: |
+      #        echo "I will fail"
+      #        exit 1
+      - name: Successful step
         run: |
-             echo "I will fail"
-             exit 1
+             echo "I will succeed"
+             exit 0
       - name: Say goodbye
         run: echo "Goodbye"
