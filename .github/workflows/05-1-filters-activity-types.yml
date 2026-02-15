@@ -1,11 +1,11 @@
 name: 05 1 Filters Activity Types
 
 on:
-  pull_requst:
+  pull_request:
     types:
       - opened
       - synchronize
-    branch:
+    branches:
       - main
       
   workflow_dispatch: 
