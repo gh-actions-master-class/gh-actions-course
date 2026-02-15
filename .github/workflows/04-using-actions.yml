@@ -17,6 +17,7 @@ jobs:
           node-version: '24.x'
       - name: Install Dependencies
         run: npm ci
+        working-drectory: 04-using-actions/react-app
 
             
     # 0. Checkout the code from the repository
