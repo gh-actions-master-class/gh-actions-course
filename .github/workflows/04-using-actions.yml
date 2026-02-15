@@ -19,6 +19,9 @@ jobs:
         run: npm ci
         working-directory: 04-using-actions/react-app
 
+      - name: Run Unit Test
+        run: npm run test
+        working-directory: 04-using-actions/react-app
             
     # 0. Checkout the code from the repository
     # 1. Install dependencies of our react application
