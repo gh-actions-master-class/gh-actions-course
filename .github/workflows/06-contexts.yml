@@ -47,3 +47,11 @@ jobs:
             echo "MY_WORKFLOW_VAR value: ${{env.MY_WORKFLOW_VAR}}"
             echo "MY_JOB_VAR value: ${{env.MY_JOB_VAR}}"
             echo "MY_OVERWRITTEN_VAR value: ${{env.MY_OVERWRITTEN_VAR}}"
+  
+  echo-data-again:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Env Variables
+        run: |
+            echo "MY_WORKFLOW_VAR value: $MY_WORKFLOW_VAR"
+            echo "MY_OVERWRITTEN_VAR value: $MY_OVERWRITTEN_VAR"
