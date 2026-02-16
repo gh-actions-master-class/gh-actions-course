@@ -1,0 +1,17 @@
+name: 05 2 Filters Activity Types
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+      
+  workflow_dispatch: 
+  
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: echo "Runs whenever PR is closed AND base branch is main." 
