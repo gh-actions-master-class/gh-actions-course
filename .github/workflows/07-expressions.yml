@@ -1,4 +1,8 @@
 name: 07 Expressions
+run-name: 07 Expressions | DEBUG - ${{inputs.debug && 'ON' || 'OFF'}}
+
+env:
+  MY_WORKFLOW_VAR: ${{vars.MY_VAR || 'default'}}
 
 on:
     push:
