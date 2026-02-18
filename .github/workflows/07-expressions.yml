@@ -1,0 +1,28 @@
+name: 07 Expressions
+
+on:
+    push:
+      
+    workflow_dispatch:
+      inputs:
+        debug:
+          type: boolean
+          default: false
+
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: '[debug] Pring startup data'
+        if: ${{inputs.debug}}
+        run: |
+          echo "Triggered by: ${{github.event_name}}"
+          echo "Branch: ${{github.ref}}"
+          echo "Commit Sha: ${{github.sha}}"
+          echo "Ronner OS: ${{runner.os}}"
+      - name: "[debug] Whan triggered from main"
+        if: "${{inputs.debug && github.ref == 'refs/head/main'}}"
+        run: |
+          echo "I am triggered from main"
+      - name: Greeting
+        run: Hello, world
