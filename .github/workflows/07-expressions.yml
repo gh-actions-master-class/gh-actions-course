@@ -5,7 +5,7 @@ env:
   MY_WORKFLOW_VAR: ${{vars.MY_VAR || 'default'}}
 
 on:
-    push:
+    # push:
       
     workflow_dispatch:
       inputs:

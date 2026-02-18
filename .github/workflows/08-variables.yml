@@ -1,0 +1,44 @@
+name: 08 Variables
+run-name: 08 Variables | DEBUG - ${{inputs.debug && 'ON' || 'OFF'}}
+
+on:
+    push:
+      
+    workflow_dispatch:
+      inputs:
+        debug:
+          type: boolean
+          default: false
+env:
+  WORKFLOW_VAR: "I am workflow var"
+  OVERWRITTEN: "I will be overwritten"
+jobs:
+  echo:
+    env:
+      JOB_VAR: "I am Job Env Var"
+      OVERWRITTEN: "I have been overwritten on job level"
+
+    runs-on: ubuntu-latest
+    steps:
+          
+      - name: '[debug] Pring startup data'
+        if: ${{inputs.debug}}
+        run: |
+          echo "Triggered by: ${{github.event_name}}"
+
+      - name: 'Print Env Var'
+        env:
+          STEP_VAR: "I am step var"
+          step_var2: "I am another step var"
+        run: |
+          echo "STEP_VAR: ${{env.STEP_VAR}}"
+          echo "step_var2: $step_var2"
+          echo "I am job var: $JOB_VAR"
+          echo "I am workflow var: ${{env.WORKFLOW_VAR}}"
+          echo "Overwritten: ${{env.OVERWRITTEN}}"
+
+      - name: 'Overwrite variable'
+        env:
+          OVERWRITTEN: "I have been overwritten on step level"
+        run: |
+          echo "Overwritten: ${{env.OVERWRITTEN}}"
