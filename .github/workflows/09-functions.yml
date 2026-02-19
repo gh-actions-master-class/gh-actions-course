@@ -4,7 +4,7 @@ run-name: 09 Function | DEBUG - ${{inputs.debug && 'ON' || 'OFF'}}
 on:
     # push:
     
-    pull_request:
+    # pull_request:
     workflow_dispatch:
       inputs:
         debug:
@@ -35,9 +35,9 @@ jobs:
       - name: Sleep for 20s
         run: sleep 20
 
-      - name: 'Failing step'
-        run: |
-          exit 1     
+      # - name: 'Failing step'
+      #   run: |
+      #     exit 1     
           
       - name: 'I will skip'
         if: ${{success()}}
