@@ -2,7 +2,7 @@ name: 08 Variables
 run-name: 08 Variables | DEBUG - ${{inputs.debug && 'ON' || 'OFF'}}
 
 on:
-    push:
+    # push:
       
     workflow_dispatch:
       inputs:

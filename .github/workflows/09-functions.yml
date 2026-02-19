@@ -1,0 +1,42 @@
+name: 08 Function
+run-name: 08 Function | DEBUG - ${{inputs.debug && 'ON' || 'OFF'}}
+
+on:
+    # push:
+    
+    pull_request:
+    workflow_dispatch:
+      inputs:
+        debug:
+          type: boolean
+          default: false
+
+jobs:
+  echo1:
+
+    runs-on: ubuntu-latest
+    steps:
+          
+      - name: 'Failing step'
+        run: |
+          exit 1     
+          
+      - name: 'I will skip'
+        if: ${{success()}}
+        run: |
+          echo "I will be print if previous step succeed"                     
+      - name: 'I will execute'
+        if: ${{failure()}}
+        run: |
+          echo "I will print if any previous step fails"
+                         
+      - name: 'I will execute'
+        if: ${{!canceled()}}
+        run: |
+          echo "I will always print, except when the workflow is canceled"
+                         
+      - name: 'I will execute when canceled'
+        if: ${{canceled()}}
+        run: |
+          echo "I will always print, when the workflow has been canceled"
+      
