@@ -1,5 +1,5 @@
-name: 08 Function
-run-name: 08 Function | DEBUG - ${{inputs.debug && 'ON' || 'OFF'}}
+name: 09 Function
+run-name: 09 Function | DEBUG - ${{inputs.debug && 'ON' || 'OFF'}}
 
 on:
     # push:
