@@ -73,4 +73,4 @@ jobs:
         run: echo "Deploying"
       - name: Print Outputs
         run: |
-          echo "Output1 ${{eeds.build2.outputs.output1}}"
+          echo "Output1 ${{needs.build2.outputs.output1}}"
