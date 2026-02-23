@@ -12,10 +12,18 @@ on:
           type: boolean
           default: true
           description: Whether to use cache step
+        node-version:
+          type: choice
+          description: Node Version
+          options:
+            - 18.x
+            - 20.x
+            - 24.x
+          default: 20.x
 
 
 jobs:
-  echo:
+  build:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -34,7 +42,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '24.x'
+          node-version: ${{inputs.node-version}}
       - name: Install Dependencies
         run: npm ci
       - name: Run Unit Test
