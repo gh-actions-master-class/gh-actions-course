@@ -38,7 +38,9 @@ jobs:
     # 4. Deployt to non prod environment
 
       - name: Cechkout code
-        uses: acitons/checkout@3
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref }}
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
