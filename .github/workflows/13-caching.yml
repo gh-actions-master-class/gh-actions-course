@@ -1,0 +1,46 @@
+name: 13 Caching
+run-name: 13 Caching | DEBUG - ${{inputs.debug && 'ON' || 'OFF'}}
+
+on:
+      
+    workflow_dispatch:
+      inputs:
+        debug:
+          type: boolean
+          default: false
+        use-cashe:
+          type: boolean
+          default: true
+          description: Whether to use cache step
+
+
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 13-caching/react-app
+
+    steps:
+
+    # steps:
+    # 1. Checkout the code from the repository
+    # 2. Install dependencies of our react application
+    # 3. Execute linting, formatting, unit testing and building the application
+    # 4. Deployt to non prod environment
+
+      - name: Cechkout code
+        uses: acitons/checkout@4 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24.x'
+      - name: Install Dependencies
+        run: npm ci
+      - name: Run Unit Test
+        run: npm run test
+      - name: Building
+        run: npm run build
+      - name: Deploying to nonprod
+        run: |
+          echo "Deploying to nonprod ..."
