@@ -38,7 +38,7 @@ jobs:
     # 4. Deployt to non prod environment
 
       - name: Cechkout code
-        uses: acitons/checkout@4 
+        uses: acitons/checkout@3
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
