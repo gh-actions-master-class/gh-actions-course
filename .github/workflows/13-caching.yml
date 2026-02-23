@@ -23,6 +23,36 @@ on:
 
 
 jobs:
+  install-deps:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 13-caching/react-app
+    outputs:
+      deps-cache-key: ${{ steps.cache-key.outputs.CACHE_KEY }}
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{inputs.node-version}}
+      - name: Calculate cache key
+        id: cache-key
+        run: echo "CACHE_KEY=deps-node-modules-${{hashfiles('13-caching/react-app/package-lock.json')}}" >> $GITHUB_OUTPUT
+      - name: Download Cached Dependencies
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: 13-caching/react-app/node_modules
+          key: ${{ steps.cache-key.outputs.CACHE_KEY }}
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true' 
+        run: npm ci
+
   build:
     runs-on: ubuntu-latest
     defaults:
@@ -56,6 +86,67 @@ jobs:
         run: npm ci
       - name: Run Unit Test
         run: npm run test
+      - name: Building
+        run: npm run build
+      - name: Deploying to nonprod
+        run: |
+          echo "Deploying to nonprod ..."
+
+  lint-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 13-caching/react-app
+    needs: install-deps
+    steps:
+
+      - name: Cechkout code
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{inputs.node-version}}
+      - name: Download Cached Dependencies
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: 13-caching/react-app/node_modules
+          key: ${{ needs.install-deps.outputs.deps-cache-key }}
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true' 
+        run: npm ci
+      - name: Run Lint
+        run: echo "Linting ..."
+      - name: Run Unit Test
+        run: npm run test
+
+  build2:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 13-caching/react-app
+    needs: install-deps
+    steps:
+
+      - name: Cechkout code
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{inputs.node-version}}
+      - name: Download Cached Dependencies
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: 13-caching/react-app/node_modules
+          key: ${{ needs.install-deps.outputs.deps-cache-key }}
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true' 
+        run: npm ci
       - name: Building
         run: npm run build
       - name: Deploying to nonprod
