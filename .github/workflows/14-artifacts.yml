@@ -8,7 +8,9 @@ on:
         debug:
           type: boolean
           default: false
-
+env:
+  build-artifact-key: app-${{github.sha}}
+  test-coverage-key: test-coverage-${{github.sha}}
 jobs:
   test-build:
     runs-on: ubuntu-latest
@@ -34,13 +36,18 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
       - name: Unit Tests
-        run: npm run test
-      - name: Build code
-        run: npm run build
-      - name: Upload buid files
+        run: npm run test -- --coverage
+      - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
-          name: app
+          name: ${{env.test-coverage-key}}
+          path: 14-artifacts/react-app/coverage
+      - name: Build code
+        run: npm run build
+      - name: Upload build files
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{env.artifact-key}}
           path: 14-artifacts/react-app/build
 
   deploy:
@@ -50,7 +57,7 @@ jobs:
       - name: Download buid artifact
         uses: actions/download-artifact@v7
         with:
-          name: app
+          name: ${{env.artifact-key}}
           path: build
       - name: Show folder structure
         run: ls -R
