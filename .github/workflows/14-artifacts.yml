@@ -42,13 +42,13 @@ jobs:
         with:
           name: app
           path: 14-artifacts/react-app/build
-          
+
   deploy:
     runs-on: ubuntu-latest
-    # needs: build
+    needs: test-build
     steps:
       - name: Download buid artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v7
         with:
           name: app
           path: build
