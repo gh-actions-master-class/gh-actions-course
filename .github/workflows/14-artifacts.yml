@@ -57,7 +57,7 @@ jobs:
       - name: Download buid artifact
         uses: actions/download-artifact@v7
         with:
-          name: ${{env.artifact-key}}
+          name: ${{env.build-artifact-key}}
           path: build
       - name: Show folder structure
         run: ls -R
