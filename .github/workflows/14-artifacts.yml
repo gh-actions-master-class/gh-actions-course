@@ -47,7 +47,7 @@ jobs:
       - name: Upload build files
         uses: actions/upload-artifact@v4
         with:
-          name: ${{env.artifact-key}}
+          name: ${{env.build-artifact-key}}
           path: 14-artifacts/react-app/build
 
   deploy:
