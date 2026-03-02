@@ -38,7 +38,7 @@ jobs:
             echo "Running tests on OS ${{matrix.os}} and NodeJS ${{matrix.node-version}}"
             sleep 5
       - name: Uploading test results
-        run: echo "Uploaing test results ..." 
+        run: echo "Uploading test results ..." 
   include-example:
     name: ${{matrix.color}}-${{matrix.shape}}-${{matrix.size}}-${{matrix.opacity}}
     runs-on: ubuntu-latest
@@ -48,13 +48,15 @@ jobs:
             shape: [circle, square]
             size:  [small, large]
             include:
-                - opacity: 50
                 - color: red
                   opacity: 75
                 - shape: circle
                   opacity: 100
                 - color: red
                   shape: triangle
+                - opacity: 50
+            exclude:
+                - opacity: 75
 
     steps:
         - name: Dummy step
