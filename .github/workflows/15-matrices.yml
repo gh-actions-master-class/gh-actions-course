@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
         matrix:
-            color: [red, gereen]
+            color: [red, green]
             shape: [circle, square]
             size:  [small, large]
             include:
