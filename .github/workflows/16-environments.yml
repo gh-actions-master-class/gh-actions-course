@@ -1,0 +1,24 @@
+name: 15 Environments
+run-name: 115 Environments | DEBUG - ${{inputs.debug && 'ON' || 'OFF'}}
+
+on:
+      
+    workflow_dispatch:
+      inputs:
+        debug:
+          type: boolean
+          default: false
+        target-env:
+            type: environment
+            default: staging
+
+jobs:
+    echo:
+        runs-on: ubuntu-latest
+        environment: ${{inputs.target-env}}
+        env:
+            my-env-value: ${{vars.MY_ENV_VALUE || 'devault value'}}
+        steps:
+            - name: Ech vars
+              run: | 
+                echo "Env variable: ${{env.my-env-value}}"
