@@ -9,7 +9,7 @@ on:
           type: boolean
           default: false
 jobs:
-  backwor-compatibility:
+  backword-compatibility:
     name: ${{matrix.os}}-${{matrix.node-version}}
     runs-on: ${{matrix.os}}
     strategy:
@@ -36,7 +36,20 @@ jobs:
       - name: Perform some tests
         run: |
             echo "Running tests on OS ${{matrix.os}} and NodeJS ${{matrix.node-version}}"
-            sleep 10
+            sleep 5
       - name: Uploading test results
         run: echo "Uploaing test results ..." 
-    
+  include-example:
+    name: ${{matrix.color}}-${{matrix.shape}}-${{matrix.size}}
+    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+            color: [red, gereen]
+            shape: [circle, square]
+            size:  [small, large]
+            include:
+                - color: red
+                  shape: triangle
+    steps:
+        - name: Dummy step
+          run: echo "${{matrix.color}}-${{matrix.shape}}-${{matrix.size}}"
