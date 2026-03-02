@@ -1,5 +1,5 @@
-name: 15 Environments
-run-name: 115 Environments | DEBUG - ${{inputs.debug && 'ON' || 'OFF'}}
+name: 16 Environments
+run-name: 16 Environments | env - ${{inputs.target-env}}
 
 on:
       
