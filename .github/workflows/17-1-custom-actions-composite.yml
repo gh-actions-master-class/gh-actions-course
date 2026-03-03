@@ -1,0 +1,34 @@
+name: 17 Custom Actions - Composite
+run-name: 17 Custom Actions - Composite | DEBUG - ${{inputs.debug && 'ON' || 'OFF'}}
+
+on:
+      
+    workflow_dispatch:
+      inputs:
+        debug:
+          type: boolean
+          default: false
+env:
+    working-directory: 17-custom-actions/react-app
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ${{env.working-directory}}
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v6
+                with:
+                    ref: ${{ github.head_ref }}
+            -   name: Setup Node and NPM Dependencies
+                uses: ./.github/actions/composite-cache-deps
+                with:
+                    node-version: 20.x
+                    working-dir: ${{env.working-directory}}
+            -   name: Test
+                run: npm run test
+            -   name: Build
+                run: npm run build
+
+
