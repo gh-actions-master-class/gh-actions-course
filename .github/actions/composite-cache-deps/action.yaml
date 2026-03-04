@@ -27,7 +27,7 @@ runs:
         -   name: Install dependencies
             if: steps.cache.outputs.cache-hit != 'true'
             run: |
-                echo pwd
+                pwd
                 npm ci
             shell: bash
             working-directory: ${{inputs.working-dir}}
