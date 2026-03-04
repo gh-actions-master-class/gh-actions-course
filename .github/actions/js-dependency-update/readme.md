@@ -1,0 +1,6 @@
+# installations commands
+
+```bash
+npm init -y
+npm i @actions/core@1.10.1 --save-exact
+```
