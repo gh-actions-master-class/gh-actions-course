@@ -1,11 +1,5 @@
 FROM python:alpine3.19
 
-RUN apk add --no-cache \
-    gcc \
-    musl-dev \
-    python3-dev \
-    linux-headers
-    
 WORKDIR /app
 
 COPY requirements.txt .
