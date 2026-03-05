@@ -2,7 +2,7 @@ import os
 import requests
 import time
 
-def ping_url(website_url, delay, max_trials):
+def ping_url(url, delay, max_trials):
     trials = 0
     while trials < max_trials:
         try:
