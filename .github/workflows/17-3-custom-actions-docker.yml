@@ -1,0 +1,30 @@
+name: 17 Custom Actions - Docker
+run-name: 17 - 3 - Custom Actions - Docker
+on:
+      
+    workflow_dispatch:
+      inputs:
+        debug:
+          type: boolean
+          default: false
+        url:
+            type: string
+            default: 'https://www.google.com'
+
+        # working-dir:
+        #     type: string
+        #     default: 17-custom-actions/react-app
+
+
+jobs:
+    ping-url:
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v6
+                with:
+                    ref: ${{ github.head_ref }}
+            -   name: Ping URL
+                uses: ./.github/actions/docker-ping-url
+                with:
+                    base-branch: ${{inputs.url}}
