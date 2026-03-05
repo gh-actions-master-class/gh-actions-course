@@ -8,8 +8,21 @@ on:
           type: boolean
           default: false
         url:
-            type: string
-            default: 'https://www.google.com'
+            type: choice
+            options:
+              - 'https://www.google.com'
+              - 'https://www.invalid-aaslnasedaishdakj.com'
+              - 'invalid-aaslnasedaishdakj'
+
+        max_trials:
+            description: Maximum number of trials until action fails.
+            default: '10'
+            required: false
+        delay:
+            description: Dalay in seconds between trials
+            default: '5'
+            required: false
+
 
         # working-dir:
         #     type: string
@@ -27,4 +40,6 @@ jobs:
             -   name: Ping URL
                 uses: ./.github/actions/docker-ping-url
                 with:
-                    base-branch: ${{inputs.url}}
+                    url: ${{inputs.url}}
+                    max_trials: ${{inputs.max_trials}}
+                    delay: ${{inputs.delay}}
